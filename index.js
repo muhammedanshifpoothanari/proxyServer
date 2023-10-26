@@ -11,22 +11,22 @@ const proxyMappings = {
     'loads': `${process.env.LOADS}`,
     'trucks': `${process.env.TRUCKS}`,
     'wareHouse': `${process.env.WAREHOUSE}`,
+    'rabit': `${process.env.RABBIT}`
 };
 
-// console.log(proxyMappings);
+
 
 app.use((req, res, next) => {
     const parts = req.url.split('/');
     const firstPart = parts[1].trim();
-    // console.log(req.url.split('/')[1])
+   
     const target = proxyMappings[req.url.split('/')[1]];
     
 
-    // console.log(parts,firstPart,target,'fdrfddf');
     if (target) {
       
         req.url = req.url.replace(req.baseUrl,'');
-        // console.log(req.url,'req.url');
+      
 
         proxy.web(req, res, { target });
     } else {
